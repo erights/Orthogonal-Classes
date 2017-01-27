@@ -48,7 +48,7 @@ Empty ElementVisibility BindingList ";"
 ElementPlacement # get PropertyName "(" ")" "{" FunctionBody "}"
 ElementPlacement # set PropertyName "(" PropertySetParameterList ")" "{" FunctionBody "}"
 ```
-Aside from this rejection, the rest of the proposal preserves the remaining orthogonality.
+Aside from these rejections, the rest of the proposal preserves the remaining orthogonality.
 
 
 ### Placement
