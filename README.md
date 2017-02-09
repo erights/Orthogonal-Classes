@@ -98,9 +98,9 @@ Starting with [Grammar Summary, Functions and
 Classes](https://www.ecma-international.org/ecma-262/7.0/#sec-functions-and-classes):
 
 <pre>
-<i>ClassElement</i> :<br>
-&nbsp;&nbsp;&nbsp;<i>MemberElement</i><br>
-&nbsp;&nbsp;&nbsp;<i>Annotation</i> <i>MemberElement</i> <br>
+<i>ClassElement</i> :
+&nbsp;&nbsp;&nbsp;<i>MemberElement</i>
+&nbsp;&nbsp;&nbsp;<i>Annotation</i> <i>MemberElement</i>
 &nbsp;&nbsp;&nbsp;<b>;</b>
 
 <i>MemberElement</i> :
