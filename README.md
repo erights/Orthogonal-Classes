@@ -77,7 +77,7 @@ For reasons discussebelow, we also disallow prototype placement of private metho
 
 #### Visibility: Public property vs private field
 
-The presence of the **`#`** sigil prefixing a member name in a class element defines a private field. The existing private state proposal uses this specifically for a private instance field, which we would write `own # ...`. The existing private state proposal postpones the issue of how one would express private instance methods, private prototype methods or private static methods. Here, the instance and static cases simply falls out of using the `static` and `own`placement keyword. `static # MethodDefinition` is a method accessed as a private field of the class/constructor object, i.e., the method is the initial value of a private field. Similarly,`own # MethodDefinition` is a method accessed as a private field of instance objects created by the class/constructor. Each such private method field of instance objects is initialized with a new function object as part of the instance initialization process. 
+In the existing privatge state proposal a class element prefixed with a  **`#`** sigil defines a private field.  The existing private state proposal postpones the issue of how one would express private instance methods, private prototype methods or private static methods. In this proposal any class element that defines a member name that is prefixed with a  **`#`** sigil defines a private field. The instance, prototype, or class/constructor placement is orthognally determined based upon the placement keyword.  `static MethodDefinition`, where the member name in the MethodDefiniton is prefixed with **`#`**, is a method accessed as a private field of the class/constructor object, i.e., the method is the initial value of a private field. Similarly,`own MethodDefinition` containing a **`#`** sigil is a method accessed as a private field of instance objects created by the class/constructor. Each such private method field of instance objects is initialized with a new function object as part of the instance initialization process. 
 
 In the WeakMap-like way of defining private state, these additional cases are specified the same way: the private names are in scope over the same body of code. But rather than using instances as the keys of the weakmap-like collection named by those names, the key would be either the prototype or the class/constructor. Of course, implementations can implement by any means that is not observably different from that.
 
@@ -149,9 +149,6 @@ Classes](https://www.ecma-international.org/ecma-262/7.0/#sec-functions-and-clas
 
 
 </pre>
-
-
-This syntax directly expresses the desired orthogonality. However, in the orthogonal matrix, there are some cases that, if allowed, would violate some of our goals. So the actual proposal sacrifices orthogonality in banning these cases. The above grammar is therefore a cover grammer where the rejection is the post-parse check. The rejected cases are
 
 ```
 Empty ElementVisibility BindingList ";"
