@@ -127,6 +127,7 @@ static | | ~~accessor method~~
 The following is the proposed syntactic changes introduced by this proposal. Grammar parameter which are not directly relevent to this proposal have been ellided and will have to be reintroduced for the final specification text. 
 
 #### [14.5 Class Definition](https://tc39.github.io/ecma262/#sec-class-definitions) Changes
+
 <pre>
 <i>ClassElement</i> :
 &nbsp;&nbsp;&nbsp;<i>MemberElement</i>
@@ -159,8 +160,10 @@ The following is the proposed syntactic changes introduced by this proposal. Gra
 
 <i>PrivateBindingIdentifer</i> : 
  &nbsp;&nbsp;&nbsp;<b>#</b> <i>BindingIdentifer</i>  
- </pre>
- 
+ </pre>  
+
+###xxx
+hlkhkljh
 #### [14.3 Method Definitions](https://tc39.github.io/ecma262/#sec-method-definitions) Changes
 <pre>
 <i>MethodDefinition</i><sub>[Private]</sub> :
