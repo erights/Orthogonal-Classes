@@ -91,8 +91,34 @@ A *MethodDefinition* can define a normal method, a generator method, an async fu
 The normal constructor declaration serves two purposes: To define the behavior of the class/constructor object and to initialize the `"constructor"` property of the prototype to point at this class/constructor. If treated orthogonally, we would continue to have a MethodDefinition for the name `"constructor"` define the behavior of the class/constructor itself. However, what objects are initialized to point at this constructor would be determined orthogonally. Again most of these choices may rarely be useful but there is no reason to violate orthogonality to surprising disallow them. In addition, one case is hugely useful:
 
 Classes will often be defined where the authority provided by holding an instance of a class should not necessarily confer the authority to invoke the constructor and make new instances. This came up most recently with WeakRefs but naturally occurs in many places. I have written much Java code whose correctness depends on the instances providing less power than their class object provides. In this design, if the `"constructor"` method definition is made static, then it is initialized to point at itself. If made private, no matter where it is placed, only code inside the class can follow this pointer back to the class/constructor. Clients of the instances have no such access and so cannot so navigate.
+
+### No Private Methods on Prototypes
+A "private method" is simply a private field that is initialized using a method definition. The ability to define a private methods on a class prototype initially sounds like useful functionaliy. However, when proposed private field access semantics is examined, prototype placement of private methods turns out to be pretty useless. The basic problem is that  there is no convenient way to reference such methods as instance objects don't inherit access to private fields placed on the prototype. Consider:
+
+```js
+class X {
+  #helper() {};  //private method on prototye
+  leader() {
+    #this.helper(); //error because instances don't have a #helper field
+    #helper() ;   //error because this means the same as  this.#helper() 
+    this.__proto__.#helper();  //error if invoked on a subclass instance
+    X.prototype.#helper();    // works (assuming no rewiring) but ugly
+                  //better to use a static private method: 
+                  //static #helper(self) {}; 
+                  // X.#helper(this);
+  }
+}
+```
+Class scoped lexical function declarations appear to be a better solution for most private method on prototype use cases. There will be presented in seperate proposal.
+
+### Table
+
+| property | field |
+own | | |
+static | | |
+(prototype} | | |
   
-###Proposal
+###Syntax
 
 Starting with [Grammar Summary, Functions and 
 Classes](https://www.ecma-international.org/ecma-262/7.0/#sec-functions-and-classes):
@@ -162,9 +188,4 @@ Aside from these rejections, the rest of the proposal preserves the remaining or
 
 ### Open questions
 
-#### Distributing Visibility over BindingList
-
-The above grammar has all elements of a BindingList share one Placement and one Visibility. For Placement, the syntax looks intuitive. For visibility, `own # x = 9, y = 10;` can be misunderstood as declaring a private `#x` field and a public `y` property. It seems that one possibility would be to change the grammar so that this is indeed allowed but would actually have that meaning. IOW, the Visibility sigil would be present or absent separately for each member of a BindingList. However, this would be hostile to sharing an annotation across all the members of one BindingList. Instead, we can have the sigil per element, but require that all elements of the same BindingList have the same visibility. Either all have the sigil and are private fields, or none have the sigil and are public properties. As with the other restrictions above, this may surprise writers with rejections they do not expect, but will minimize misundertanding of those reading code that was not statically rejected.
-
-Aside from these rejections, the rest of the proposal preserves the remaining orthogonality.
 
