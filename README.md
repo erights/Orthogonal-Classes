@@ -1,7 +1,7 @@
 # Orthogonal Class Member Syntax 
 Proposed EcmaScript Class Syntax clarifying orthogonal concerns
 ## Summary
-Various [distinct](https://tc39.github.io/proposal-class-public-fields/) [proposals](https://github.com/tc39/proposal-private-fields) suggest syntaxes and semantics for new [*ClassBody*](https://tc39.github.io/ecma262/#prod-ClassBody) elements. However, up to now there has not been any guidance for choosing the syntax for new *ClassBody* extensions. This document presents a common syntactic model for *ClassBody* member elements.  This model can be used to align syntatic design decisions in existing and future proposals. 
+[Various](http://tc39.github.io/proposal-decorators/) [distinct](https://tc39.github.io/proposal-class-public-fields/) [proposals](https://github.com/tc39/proposal-private-fields) suggest syntax and semantics for new [*ClassBody*](https://tc39.github.io/ecma262/#prod-ClassBody) elements. However, up to now there has not been any guidance for choosing the syntax for new *ClassBody* extensions. This document presents a common syntactic model for *ClassBody* member elements.  This model can be used to align syntatic design decisions in existing and future proposals. 
 
 A "class member" is an object property or private field that is defined as part of a *ClassBody*.  We define class members in terms of three orthogonal dimensions:   
 
