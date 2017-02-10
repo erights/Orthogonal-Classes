@@ -1,7 +1,7 @@
 # Orthogonal Class Member Syntax 
 Proposed EcmaScript Class Syntax clarifying orthogonal concerns
 ## Summary
-Various distinct proposals suggest syntaxes and semantics for new [*ClassBody*](https://tc39.github.io/ecma262/#prod-ClassBody) elements. However, up to now there has not been any guidance for choosing the syntax for new *ClassBody* extensions. This document presents a common syntactic model for *ClassBody* member elements.  This model can be used to align syntatic design decisions in existing and future proposals. 
+Various [distinct](https://tc39.github.io/proposal-class-public-fields/) [proposals](https://github.com/tc39/proposal-private-fields) suggest syntaxes and semantics for new [*ClassBody*](https://tc39.github.io/ecma262/#prod-ClassBody) elements. However, up to now there has not been any guidance for choosing the syntax for new *ClassBody* extensions. This document presents a common syntactic model for *ClassBody* member elements.  This model can be used to align syntatic design decisions in existing and future proposals. 
 
 A "class member" is an object property or private field that is defined as part of a *ClassBody*.  We define class members in terms of three orthogonal dimensions:   
 
@@ -133,6 +133,9 @@ The following is the proposed syntactic changes introduced by this proposal. Gra
 &nbsp;&nbsp;&nbsp;<i>MemberElement</i>
 &nbsp;&nbsp;&nbsp;<i>Annotation</i> <i>MemberElement</i>
 &nbsp;&nbsp;&nbsp;<b>;</b>
+</pre>
+*Annotation* is defined by the [Decorators Proposal](http://tc39.github.io/proposal-decorators/).
+<pre>
 
 <i>MemberElement</i> :
 &nbsp;&nbsp;&nbsp;<i>ConstructorElement</i>
@@ -163,6 +166,7 @@ The following is the proposed syntactic changes introduced by this proposal. Gra
  </pre>
 
 #### [14.3 Method Definitions](https://tc39.github.io/ecma262/#sec-method-definitions) Changes
+
 <pre>
 <i>MethodDefinition</i><sub>[Private]</sub> :
 &nbsp;&nbsp;&nbsp;<i>MethodName</i><sub>[?Private]</sub><b> ( </b><i>UniqueFormalParameters</i><b> ) { </b><i>FunctionBody</i><b> }</b>
