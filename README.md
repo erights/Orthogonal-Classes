@@ -111,18 +111,22 @@ class X {
 ```
 Class scoped lexical function declarations appear to be a better solution for most private method on prototype use cases. There will be presented in seperate proposal.
 
-### Table
+### Summary of Disallowed Member Definitions
 
-| property | field |
-own | | |
-static | | |
-(prototype} | | |
+A member definiton is either a element of a data member binding list or one of the <i>MethodDefinition</i> forms. Most of the orthogonal combinations of method placment and visibility permit the use of any member definition form.  The forms that are syntactically disallowed are summeried in the following table.
+
+
+position/visibility| public property | private field |
+-------------------|-----------------|---------------|
+own | | ~~accessor method~~|
+static | | ~~accessor method~~
+(prototype} | ~~data property~~ | ~~data field~~<br>~~<i>MethodDefinition</i>~~|
   
-###Syntax
+###Proposed Syntax
 
-Starting with [Grammar Summary, Functions and 
-Classes](https://www.ecma-international.org/ecma-262/7.0/#sec-functions-and-classes):
+The following is the proposed syntactic changes introduced by this proposal. Grammar parameter which are not directly relevent to this proposal have been ellided and will have to be reintroduced for the final specification text. 
 
+#### [14.5 Class Definition](https://tc39.github.io/ecma262/#sec-class-definitions) Changes
 <pre>
 <i>ClassElement</i> :
 &nbsp;&nbsp;&nbsp;<i>MemberElement</i>
@@ -155,7 +159,10 @@ Classes](https://www.ecma-international.org/ecma-262/7.0/#sec-functions-and-clas
 
 <i>PrivateBindingIdentifer</i> : 
  &nbsp;&nbsp;&nbsp;<b>#</b> <i>BindingIdentifer</i>  
+ </pre>
  
+ #### [14.3 Method Definitions](https://tc39.github.io/ecma262/#sec-method-definitions) Changes
+<pre>
 <i>MethodDefinition</i><sub>[Private]</sub> :
 &nbsp;&nbsp;&nbsp;<i>MethodName</i><sub>[?Private]</sub><b> ( </b><i>UniqueFormalParameters</i><b> ) { </b><i>FunctionBody</i><b> }</b>
 &nbsp;&nbsp;&nbsp;<i>GeneratorMethod</i><sub>[?Private]</sub>
@@ -166,26 +173,21 @@ Classes](https://www.ecma-international.org/ecma-262/7.0/#sec-functions-and-clas
 <i>MethodName</i><sub>[Private]</sub> : 
  &nbsp;&nbsp;&nbsp;<i>PropertyName</i>   
  &nbsp;&nbsp;&nbsp;<small>[+Private]</small> <i>PrivateBindingIdentifer</i>   
+</pre>
 
+#### [14.4 Generator Function Definitions](https://tc39.github.io/ecma262/#sec-generator-function-definitions) Changes
+<pre>
 <i>GeneratorMethod</i><sub>[Private]</sub>:
 &nbsp;&nbsp;&nbsp;<b>*</b>  <i>MethodName</i><sub>[?Private]</sub><b> ( </b><i>UniqueFormalParameters</i><b> ) { </b><i>GeneratorBody</i><b> }</b>
+</pre>
 
+#### [14.6 Async Function Definitions](https://tc39.github.io/ecma262/#sec-async-function-definitions) Changes
+<pre>
  <i>AsyncMethod</i><sub>[Private]</sub>:
 &nbsp;&nbsp;&nbsp;<b>async</b> <small>[no <i>LineTerminator</i> here]</small> <i>MethodName</i><sub>[?Private]</sub><b> ( </b><i>UniqueFormalParameters</i><b> ) { </b><i>AsyncFunctionBody</i><b> }</b>
 
-
 </pre>
 
-```
-Empty ElementVisibility BindingList ";"
-ElementPlacement # get PropertyName "(" ")" "{" FunctionBody "}"
-ElementPlacement # set PropertyName "(" PropertySetParameterList ")" "{" FunctionBody "}"
-```
-Aside from these rejections, the rest of the proposal preserves the remaining orthogonality.
 
-
-
-
-### Open questions
 
 
