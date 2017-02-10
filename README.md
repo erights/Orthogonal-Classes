@@ -162,7 +162,7 @@ The following is the proposed syntactic changes introduced by this proposal. Gra
  &nbsp;&nbsp;&nbsp;<b>#</b> <i>BindingIdentifer</i>
  </pre>
 
-#### [4.3 Method Definitions](https://tc39.github.io/ecma262/#sec-method-definitions) Changes
+#### [14.3 Method Definitions](https://tc39.github.io/ecma262/#sec-method-definitions) Changes
 <pre>
 <i>MethodDefinition</i><sub>[Private]</sub> :
 &nbsp;&nbsp;&nbsp;<i>MethodName</i><sub>[?Private]</sub><b> ( </b><i>UniqueFormalParameters</i><b> ) { </b><i>FunctionBody</i><b> }</b>
