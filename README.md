@@ -118,9 +118,9 @@ A member definiton is either a element of a data member binding list or one of t
 
 position/visibility| public property | private field |
 -------------------|-----------------|---------------|
-own | | ~~accessor method~~|
-static | | ~~accessor method~~
-(prototype} | ~~data property~~ | ~~data field~~<br>~~<i>MethodDefinition</i>~~|
+<b>own</b> | | ~~accessor method~~|
+<b>static</b> | | ~~accessor method~~
+<b>(prototype}</b> | ~~data property~~ | ~~data field~~<br>~~<i>MethodDefinition</i>~~|
   
 ###Proposed Syntax
 
