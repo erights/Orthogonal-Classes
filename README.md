@@ -1,5 +1,5 @@
 # Orthogonal Class Member Syntax
-By Mark S. Miller (@erights) and Allen Wirfs-Brock (@llenwb)
+By Mark S. Miller (@erights) and Allen Wirfs-Brock (@allenwb)
 
 **ECMAScript Class Syntax: A Proposal to clarify orthogonal concerns**
 ## Summary
@@ -37,7 +37,8 @@ class Foo {
   }
 }
 ```
-##Details
+
+## Details
 
 ### Non-Orthogonal Goals
   1. Compatible with existing ECMAScript class definition syntax
