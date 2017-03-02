@@ -29,7 +29,7 @@ class Foo {
   static #p=new Set(), q=Foo.#p;
                 // a private field and a property
                 // of the class constructor                     
-  static get p(){return this.#p} //accessor method     
+  static get p(){return Foo.#p} //accessor method     
   //prototype methods                
   setCallback(f){this.#callback=f}
   constructor(s){
@@ -37,6 +37,8 @@ class Foo {
   }
 }
 ```
+
+The most important part of this proposal is the concept of syntactic orthogonality. The key idea is that instead of arbitrarily assigning syntax to various _ClassElement_ constructs, there is a set of simple orthogonal  syntactic units that represent composable semantic concepts. If a JS programmer understand what `static`, #, and the binding list syntactic forms mean then they will understand what `static #foo; ` or `own #bar;` means even if they haven’t specifically been taught about private fields on constructors or own private instance fields.  Orthogonality does introduce some syntactic forms that have limited utility. But that’s ok as the orthogonal consistently makes such rarely used cases understandable. A few special case restrictions is ok, but too many looses the orthogonality and degenerates into a big bag of arbitrary rules.
 
 ## Details
 
@@ -81,7 +83,7 @@ For reasons discussed below, we also disallow prototype placement of private met
 
 #### Visibility: Public property vs private field
 
-In the existing [private state proposal](https://github.com/tc39/proposal-private-fields) a class element prefixed with a  **`#`** sigil defines a private field.  The existing private state proposal postpones the issue of how one would express private instance methods, private prototype methods or private static methods. In this proposal any class element that defines a member name that is prefixed with a  **`#`** sigil defines a private field. The instance, prototype, or class/constructor placement is orthogonally determined based upon the placement keyword.  `static` *MethodDefinition*, where the member name in the *MethodDefinition* is prefixed with **`#`**, is a method accessed as a private field of the class/constructor object, i.e., the method is the initial value of a private field. Similarly,`own` *MethodDefinition* containing a **`#`** sigil is a method accessed as a private field of instance objects created by the class/constructor. Each such private method field of instance objects is initialized with a new function object as part of the instance initialization process. (Or perhaps the initial function objects are determined at class definition time and initially shared by all instances. That decision is in the realm of the private state proposal.)
+In the existing [private state proposal](https://github.com/tc39/proposal-private-fields) a class element prefixed with a  **`#`** sigil defines a private field of a class instance.  The existing private state proposal postpones the issue of how one would express private instance methods, private prototype methods or private static methods. In this proposal any class element that defines a member name that is prefixed with a  **`#`** sigil defines a private field. The instance, prototype, or class/constructor placement is orthogonally determined based upon the placement keyword.  `static` *MethodDefinition*, where the member name in the *MethodDefinition* is prefixed with **`#`**, is a method accessed as a private field of the class/constructor object, i.e., the method is the initial value of a private field. Similarly,`own` *MethodDefinition* containing a **`#`** sigil is a method accessed as a private field of instance objects created by the class/constructor. Each such private method field of instance objects is initialized with a new function object as part of the instance initialization process. (Or perhaps the initial function objects are determined at class definition time and initially shared by all instances. That decision is in the realm of the private state proposal.)
 
 In the WeakMap-like way of defining private state, these additional cases are specified the same way: the private names are in scope over the same body of code. But rather than using instances as the keys of the weakmap-like collection named by those names, the key would be either the prototype or the class/constructor. Of course, implementations can implement by any means that is not observably different from that.
 
@@ -92,6 +94,9 @@ Each member is defined either via a *MemberDefinition* or as an element of a mem
 A *MethodDefinition* can define a normal method, a generator method, an async function method, an accessor, or the constructor. Accessors members  are not about the initial value of the member, but rather about the nature of the member itself. This only makes sense for properties. A private accessor field is not meaningful and hence is not allowed.
 
 ### The constructor method  
+
+_Preliminary: There are know issues in this section but they don't impact the rest of the proposal_
+
 The normal constructor declaration serves two purposes: To define the behavior of the class/constructor object and to initialize the `"constructor"` property of the prototype to point at this class/constructor. If treated orthogonally, we would continue to have a MethodDefinition for the name `"constructor"` define the behavior of the class/constructor itself. However, what objects are initialized to point at this constructor would be determined orthogonally. Again most of these choices may rarely be useful but there is no reason to violate orthogonality to surprising disallow them. In addition, one case is hugely useful:
 
 Classes will often be defined where the authority provided by holding an instance of a class should not necessarily confer the authority to invoke the constructor and make new instances. This came up most recently with WeakRefs but naturally occurs in many places. I have written much Java code whose correctness depends on the instances providing less power than their class object provides. In this design, if the `"constructor"` method definition is made static, then it is initialized to point at itself. If made private, no matter where it is placed, only code inside the class can follow this pointer back to the class/constructor. Clients of the instances have no such access and so cannot so navigate.
@@ -101,7 +106,7 @@ A "private method" is simply a private field that is initialized using a method 
 
 ```js
 class X {
-  #helper() {};  //private method on prototye
+  #helper() {};  //private method on prototype
   leader() {
     this.#helper(); //error because instances don't have a #helper field
     #helper();      //error because this means the same as  this.#helper()
