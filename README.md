@@ -38,7 +38,7 @@ class Foo {
 }
 ```
 
-The most important part of this proposal is the concept of syntactic orthogonality. The key idea is that instead of arbitrarily assigning syntax to various _ClassElement_ constructs, there is a set of simple orthogonal  syntactic units that represent composable semantic concepts. If a JS programmer understand what `static`, #, and the binding list syntactic forms mean then they will understand what `static #foo; ` or `own #bar;` means even if they haven’t specifically been taught about private fields on constructors or own private instance fields.  Orthogonality does introduce some syntactic forms that have limited utility. But that’s ok as the orthogonal consistently makes such rarely used cases understandable. A few special case restrictions is ok, but too many looses the orthogonality and degenerates into a big bag of arbitrary rules.
+The most important part of this proposal is the concept of syntactic orthogonality. The key idea is that instead of arbitrarily assigning syntax to various _ClassElement_ constructs, there is a set of simple orthogonal  syntactic units that represent composable semantic concepts. If a JS programmer understand what `static`, #, and the binding list syntactic forms mean then they will understand what `static #foo; ` or `own #bar;` means even if they haven’t specifically been taught about private fields on constructors or own private instance fields.  Orthogonality does introduce some syntactic forms that have limited utility. But that’s ok as the orthogonal consistently makes such rarely used cases understandable. The important thing is that all of the allowed cases obey the non-surprising orthogonality meaning of the syntactic tokens. A few special case restrictions are ok, but too many would loose the orthogonality and degenerates into a big bag of arbitrary rules.
 
 ## Details
 
@@ -95,7 +95,7 @@ A *MethodDefinition* can define a normal method, a generator method, an async fu
 
 ### The constructor method  
 
-_Preliminary: There are know issues in this section but they don't impact the rest of the proposal_
+_Preliminary: There are known issues in this section but they don't impact the rest of the proposal_
 
 The normal constructor declaration serves two purposes: To define the behavior of the class/constructor object and to initialize the `"constructor"` property of the prototype to point at this class/constructor. If treated orthogonally, we would continue to have a MethodDefinition for the name `"constructor"` define the behavior of the class/constructor itself. However, what objects are initialized to point at this constructor would be determined orthogonally. Again most of these choices may rarely be useful but there is no reason to violate orthogonality to surprising disallow them. In addition, one case is hugely useful:
 
