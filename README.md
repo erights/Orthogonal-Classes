@@ -122,7 +122,7 @@ Class scoped lexical function declarations appear to be a better solution for mo
 
 ### Summary of Disallowed Member Definitions
 
-A member definition is either a element of a data member binding list or one of the <i>MethodDefinition</i> forms. Most of the orthogonal combinations of method placement and visibility permit the use of any member definition form.  The forms that are syntactically disallowed are summarized in the following table.
+A member definition is either an element of a data member binding list or one of the <i>MethodDefinition</i> forms. Most of the orthogonal combinations of method placement and visibility permit the use of any member definition form.  The forms that are syntactically disallowed are summarized in the following table.
 
 
 position/visibility| public property | private field |
