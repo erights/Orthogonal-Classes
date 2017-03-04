@@ -118,7 +118,7 @@ class X {
   }
 }
 ```
-Class scoped lexical function declarations appear to be a better solution for most private method on prototype use cases. There will be presented in separate proposal.
+Class scoped lexical function declarations appear to be a better solution for most private method on prototype use cases. These will be presented in separate proposal.
 
 ### Summary of Disallowed Member Definitions
 
