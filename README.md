@@ -55,7 +55,7 @@ The most important part of this proposal is the concept of syntactic orthogonali
   1. Don't cut off sensible choices without good reason
   1. Avoid combinatorial explosion of ad hoc syntaxes to express many sensible choices
   1. Preserve investment in existing proposals -- stay similar to them
-  1. Avoid semantic confusion arising from semantics of `private`/`public` in other langauge that have use a similar syntax for class definitions.
+  1. Avoid semantic confusion arising from semantics of `private`/`public` in other langauges that use a similar syntax for class definitions.
 
 ### Orthogonal Dimensions of Declarative Class State
 
