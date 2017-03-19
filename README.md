@@ -55,7 +55,7 @@ The most important part of this proposal is the concept of syntactic orthogonali
   1. Don't cut off sensible choices without good reason
   1. Avoid combinatorial explosion of ad hoc syntaxes to express many sensible choices
   1. Preserve investment in existing proposals -- stay similar to them
-  1. Avoid semantic confusion arising from semantics of `private`/`public` in other langauge that have use a similar syntax for class definitions.
+  1. Avoid semantic confusion arising from semantics of `private`/`public` in other langauges that use a similar syntax for class definitions.
 
 ### Orthogonal Dimensions of Declarative Class State
 
@@ -118,11 +118,11 @@ class X {
   }
 }
 ```
-Class scoped lexical function declarations appear to be a better solution for most private method on prototype use cases. There will be presented in separate proposal.
+Class scoped lexical function declarations appear to be a better solution for most private method on prototype use cases. These will be presented in a separate proposal.
 
 ### Summary of Disallowed Member Definitions
 
-A member definition is either a element of a data member binding list or one of the <i>MethodDefinition</i> forms. Most of the orthogonal combinations of method placement and visibility permit the use of any member definition form.  The forms that are syntactically disallowed are summarized in the following table.
+A member definition is either an element of a data member binding list or one of the <i>MethodDefinition</i> forms. Most of the orthogonal combinations of method placement and visibility permit the use of any member definition form.  The forms that are syntactically disallowed are summarized in the following table.
 
 
 position/visibility| public property | private field |
