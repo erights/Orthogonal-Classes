@@ -93,14 +93,6 @@ Each member is defined either via a *MemberDefinition* or as an element of a mem
 
 A *MethodDefinition* can define a normal method, a generator method, an async function method, an accessor, or the constructor. Accessors members  are not about the initial value of the member, but rather about the nature of the member itself. This only makes sense for properties. A private accessor field is not meaningful and hence is not allowed.
 
-### The constructor method  
-
-_Preliminary: There are known issues in this section but they don't impact the rest of the proposal_
-
-The normal constructor declaration serves two purposes: To define the behavior of the class/constructor object and to initialize the `"constructor"` property of the prototype to point at this class/constructor. If treated orthogonally, we would continue to have a MethodDefinition for the name `"constructor"` define the behavior of the class/constructor itself. However, what objects are initialized to point at this constructor would be determined orthogonally. Again most of these choices may rarely be useful but there is no reason to violate orthogonality to surprising disallow them. In addition, one case is hugely useful:
-
-Classes will often be defined where the authority provided by holding an instance of a class should not necessarily confer the authority to invoke the constructor and make new instances. This came up most recently with WeakRefs but naturally occurs in many places. I have written much Java code whose correctness depends on the instances providing less power than their class object provides. In this design, if the `"constructor"` method definition is made static, then it is initialized to point at itself. If made private, no matter where it is placed, only code inside the class can follow this pointer back to the class/constructor. Clients of the instances have no such access and so cannot so navigate.
-
 ### No Private Methods on Prototypes
 A "private method" is simply a private field that is initialized using a method definition. The ability to define a private methods on a class prototype initially sounds like useful functionality. However, when the proposed private field access semantics is examined, prototype placement of private methods turns out to be pretty useless. The basic problem is that  there is no convenient way to reference such methods as instance objects don't inherit access to private fields placed on the prototype. Consider:
 
